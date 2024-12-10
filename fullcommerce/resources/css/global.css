@@ -1,0 +1,11 @@
+
+
+.el-input__wrapper.is-focus {
+    box-shadow: none !important;
+}
+
+
+[type='text']:focus {
+    --tw-ring-color: transparent !important
+    --tw-ring-shadow: none !important;
+}

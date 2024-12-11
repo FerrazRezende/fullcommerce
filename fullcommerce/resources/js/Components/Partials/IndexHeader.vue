@@ -1,10 +1,14 @@
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { defineEmits, ref } from 'vue';
+import LogInOutComponent from './Header/LogInOutComponent.vue';
 
-
-
+const emit = defineEmits(['open-modal-header'])
 
 const search = ref<String>("");
+
+const openModal = () => {
+    emit('open-modal-header');
+}
 
 </script>
 
@@ -28,7 +32,9 @@ const search = ref<String>("");
         <div class="buttons-container">
             <a><v-icon name="bi-cart3" :scale="2" /></a>
             <a><v-icon name="hi-heart" :scale="2" /></a>
-            <a><v-icon name="la-user-solid" :scale="2" /></a>
+
+            <LogInOutComponent @open-modal="openModal" />
+
         </div>
     </div>
 </template>
@@ -48,6 +54,10 @@ const search = ref<String>("");
 
 .search-container {
     width: 35%;
+}
+
+.buttons-container {
+    display: flex;
 }
 
 .buttons-container>a {

@@ -3,7 +3,7 @@ import SignUpModal from '@/Components/Auth/SignUpModal.vue';
 import IndexHeader from '@/Components/Partials/IndexHeader.vue';
 import { ref } from 'vue';
 
-const modalOpen = ref<boolean>(true)
+const modalOpen = ref<boolean>(false)
 
 
 const openModal = () => {

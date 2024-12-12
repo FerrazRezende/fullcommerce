@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import Layout from '../Layouts/IndexLayout.vue'
 </script>
 
@@ -12,7 +12,7 @@ export default {
 
 <template>
     <div>
-        <h1>Teste</h1>
+        <h1>Homepage</h1>
     </div>
 </template>
 

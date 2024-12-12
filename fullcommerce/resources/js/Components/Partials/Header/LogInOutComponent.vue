@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineEmits } from 'vue';
+import { router } from '@inertiajs/vue3'
 
 
 const emit = defineEmits(['open-modal']);
@@ -8,6 +9,11 @@ const emit = defineEmits(['open-modal']);
 const openModal = () => {
     emit('open-modal');
 }
+
+const goToLogin = () => {
+    router.visit('/login')
+}
+
 </script>
 
 <template>
@@ -16,7 +22,7 @@ const openModal = () => {
             <v-icon name="la-user-solid" :scale="2" />
             <template #dropdown>
                 <div class="login-container">
-                    <el-button class="login button" style="width: 240px;" type="primary">
+                    <el-button @click="goToLogin" class="login button" style="width: 240px;" type="primary">
                         Fazer login
                     </el-button>
 

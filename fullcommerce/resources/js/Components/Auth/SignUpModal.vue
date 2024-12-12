@@ -2,14 +2,14 @@
 import { reactive, ref, watch } from 'vue';
 import { IUser } from '@/Interfaces/IUser';
 import axios from 'axios';
-import { ElNotification } from 'element-plus';
+import { ElNotification, FormInstance, FormRules } from 'element-plus';
 
 
 const emit = defineEmits(['closeModal'])
 
 const formRef = ref<any>(null)
 
-
+const loading = ref<Boolean>(false)
 
 const { modalOpen } = defineProps({
     modalOpen: {
@@ -18,7 +18,7 @@ const { modalOpen } = defineProps({
     }
 })
 
-const dialogFormVisible = modalOpen
+const dialogFormVisible = ref<Boolean>(modalOpen)
 
 const form = reactive<IUser>({
     name: '',
@@ -28,7 +28,7 @@ const form = reactive<IUser>({
 })
 
 
-const rules = reactive({
+const rules = reactive<FormRules<IUser>>({
     name: [{ required: true, message: "O nome é obrigatório", trigger: "blur" }],
     email: [
         { required: true, message: "O e-mail é obrigatório", trigger: "blur" },
@@ -51,31 +51,49 @@ const rules = reactive({
 
 })
 
-const handleCreateAccount = () => {
-    formRef.value.validate(async (valid: boolean) => {
+const handleCreateAccount = async () => {
+    loading.value = true
+
+    if (!formRef.value) return
+
+    await formRef.value.validate(async (valid: any) => {
         if (valid) {
-            try {
-                const response = await axios.post('/register', form);
 
-                if (response) {
-                    ElNotification({
-                        title: "Ok",
-                        message: "Conta criada com sucesso"
-                    })
-                }
+            const payload = {
+                name: form.name,
+                email: form.email,
+                password: form.password,
+                password_confirmation: form.confirmedPassword
+            }
 
-            } catch (err) {
+            const response = await axios.post('/register', payload)
+
+            if (response.status === 201) {
                 ElNotification({
-                    title: "Erro",
-                    message: "Impossível criar a conta" + err
+                    title: "Ok",
+                    message: "Conta criada com sucesso!"
                 })
             }
+
+            loading.value = false
+            closeModal()
+
+        } else {
+            ElNotification({
+                title: "Erro",
+                message: "Impossível criar a conta!"
+            })
         }
     })
+
 }
 
-const closeModal = () => {
+watch(() => modalOpen, (newVal) => {
+    dialogFormVisible.value = newVal
+})
 
+const closeModal = () => {
+    dialogFormVisible.value = false
     emit('closeModal')
 
 }
@@ -87,27 +105,27 @@ const closeModal = () => {
     <div>
         <el-dialog :show-close="false" v-model="dialogFormVisible" title="Criar conta" width="500">
 
-            <el-form label-position="top" :rules="rules" :model="form" :ref="formRef">
-                <el-form-item label="Insira seu nome">
+            <el-form ref="formRef" label-position="top" :rules="rules" :model="form">
+                <el-form-item label="Insira seu nome" prop="name">
                     <el-input v-model="form.name" />
                 </el-form-item>
 
-                <el-form-item label="Insira seu e-mail">
+                <el-form-item label="Insira seu e-mail" prop="email">
                     <el-input v-model="form.email" />
                 </el-form-item>
 
-                <el-form-item label="Escolha uma senha">
+                <el-form-item label="Escolha uma senha" prop="password">
                     <el-input type="password" v-model="form.password" />
                 </el-form-item>
 
-                <el-form-item label="Confirme sua senha">
+                <el-form-item label="Confirme sua senha" prop="confirmedPassword">
                     <el-input type="password" v-model="form.confirmedPassword" />
                 </el-form-item>
             </el-form>
 
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button type="primary" @click="handleCreateAccount">Criar conta</el-button>
+                    <el-button type="primary" @click="handleCreateAccount" :loading="loading">Criar conta</el-button>
                     <el-button @click="closeModal">Cancelar</el-button>
                 </div>
             </template>

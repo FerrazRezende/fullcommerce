@@ -1,13 +1,25 @@
 <script setup lang='ts'>
-import { defineEmits, ref } from 'vue';
+import { defineEmits, } from 'vue';
 import LogInOutComponent from './Header/LogInOutComponent.vue';
+import SearchForAnything from '../SearchForAnything.vue';
+import { usePage } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3'
+
 
 const emit = defineEmits(['open-modal-header'])
 
-const search = ref<String>("");
+
+const page = usePage();
+
+const isLogged = page.props.auth?.user != null;
 
 const openModal = () => {
     emit('open-modal-header');
+}
+
+
+const goToHome = () => {
+    router.visit('/')
 }
 
 </script>
@@ -15,25 +27,20 @@ const openModal = () => {
 
 <template>
     <div class="header-container">
-        <div class="logo-container">
+        <div class="logo-container" @click="goToHome">
             <h1>Logo</h1>
             <p>Aqui</p>
         </div>
 
         <div class="search-container">
-            <el-input v-model="search" placeholder="Search for anything">
-                <template #prepend>
-                    <v-icon name="io-search-outline" />
-                </template>
-            </el-input>
+            <SearchForAnything />
         </div>
-
 
         <div class="buttons-container">
             <a><v-icon name="bi-cart3" :scale="2" /></a>
             <a><v-icon name="hi-heart" :scale="2" /></a>
 
-            <LogInOutComponent @open-modal="openModal" />
+            <LogInOutComponent @open-modal="openModal" :is-logged="isLogged" />
 
         </div>
     </div>
@@ -44,7 +51,7 @@ const openModal = () => {
     height: 88px;
     width: 100vw;
 
-    background-color: #206535;
+    background-color: var(--el-color-primary);
 
     display: flex;
 

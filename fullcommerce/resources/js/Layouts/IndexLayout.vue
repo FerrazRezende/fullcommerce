@@ -32,4 +32,8 @@ const closeModal = () => {
     </div>
 </template>
 
-<style></style>
+<style scoped>
+main {
+    padding: 0 64px;
+}
+</style>

@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import TabSideBar from '@/Components/Dashboard/TabSideBar.vue';
 import Layout from '@/Layouts/IndexLayout.vue';
 
 
@@ -12,12 +13,14 @@ export default {
 </script>
 
 <template>
-    <div>
-        <h1>
-            Teste
-        </h1>
+    <div class="sidebar-container">
+        <TabSideBar />
     </div>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.sidebar-container {
+    margin: 16px 0;
+}
+</style>

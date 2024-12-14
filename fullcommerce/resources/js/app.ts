@@ -16,6 +16,12 @@ import {
     BiCart3,
     HiHeart,
     LaUserSolid,
+    MdSpacedashboardOutlined,
+    CoScreenSmartphone,
+    MdRequestpageOutlined,
+    MdLocalshipping,
+    BiBagHeartFill
+
 } from 'oh-vue-icons/icons'
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 
@@ -25,6 +31,12 @@ addIcons(
     BiCart3,
     HiHeart,
     LaUserSolid,
+    MdSpacedashboardOutlined,
+    CoScreenSmartphone,
+    MdRequestpageOutlined,
+    MdLocalshipping,
+    BiBagHeartFill
+
 )
 
 

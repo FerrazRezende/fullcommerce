@@ -6,6 +6,13 @@ import { router } from '@inertiajs/vue3'
 const emit = defineEmits(['open-modal']);
 
 
+defineProps({
+    isLogged: {
+        type: Boolean,
+        required: true
+    }
+})
+
 const openModal = () => {
     emit('open-modal');
 }
@@ -21,7 +28,7 @@ const goToLogin = () => {
         <el-dropdown placement="bottom">
             <v-icon name="la-user-solid" :scale="2" />
             <template #dropdown>
-                <div class="login-container">
+                <div class="login-container" v-if="!isLogged">
                     <el-button @click="goToLogin" class="login button" style="width: 240px;" type="primary">
                         Fazer login
                     </el-button>
@@ -31,6 +38,11 @@ const goToLogin = () => {
                     <el-button @click="openModal" class="register button" type="info">
                         Criar conta
                     </el-button>
+                </div>
+
+                <div v-else class="logout-container">
+                    <el-button>Sair</el-button>
+
                 </div>
             </template>
         </el-dropdown>

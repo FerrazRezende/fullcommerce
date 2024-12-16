@@ -2,6 +2,14 @@
 import Dashboard from '@/Components/Dashboard/Tabs/Dashboard.vue';
 import Produtos from '@/Components/Dashboard/Tabs/Produtos.vue';
 
+
+defineProps({
+    user: {
+        type: Object,
+        required: true
+    }
+})
+
 </script>
 
 <template>
@@ -15,7 +23,7 @@ import Produtos from '@/Components/Dashboard/Tabs/Produtos.vue';
                 </span>
             </template>
 
-            <Dashboard />
+            <Dashboard :user="user" />
 
         </el-tab-pane>
 

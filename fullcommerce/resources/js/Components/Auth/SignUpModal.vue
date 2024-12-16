@@ -24,7 +24,7 @@ const form = reactive<IUser>({
     name: '',
     email: '',
     password: '',
-    confirmedPassword: ''
+    confirmedPassword: '',
 })
 
 

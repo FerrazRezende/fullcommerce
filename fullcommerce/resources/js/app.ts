@@ -20,7 +20,9 @@ import {
     CoScreenSmartphone,
     MdRequestpageOutlined,
     MdLocalshipping,
-    BiBagHeartFill
+    BiBagHeartFill,
+    MdClose,
+    HiSolidPlus
 
 } from 'oh-vue-icons/icons'
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
@@ -35,8 +37,9 @@ addIcons(
     CoScreenSmartphone,
     MdRequestpageOutlined,
     MdLocalshipping,
-    BiBagHeartFill
-
+    BiBagHeartFill,
+    HiSolidPlus,
+    MdClose
 )
 
 

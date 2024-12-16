@@ -16,6 +16,13 @@ defineProps({
 })
 
 
+const emit = defineEmits()
+
+
+const editInfo = () => {
+    emit('edit-info')
+}
+
 </script>
 
 
@@ -50,7 +57,7 @@ defineProps({
         </el-descriptions>
 
         <template #footer>
-            <el-button type="primary">Editar informações da conta</el-button>
+            <el-button type="primary" @click="editInfo">Editar informações da conta</el-button>
         </template>
     </el-card>
 

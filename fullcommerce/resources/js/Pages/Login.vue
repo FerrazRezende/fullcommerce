@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import Layout from '@/Layouts/IndexLayout.vue';
 import { useForm } from '@inertiajs/vue3';
+import { ElNotification } from 'element-plus';
 
 
 const form = useForm({
@@ -11,8 +12,27 @@ const form = useForm({
 
 const submitLogin = () => {
     form.post('/login', {
-        onFinish: () => form.reset('password')
-    });
+        onFinish: () => form.reset('password'),
+        onSuccess: () => {
+            ElNotification.success({
+                title: "Ok",
+                message: "Logado com sucesso!",
+                duration: 1000
+            })
+        },
+        onError: () => {
+            ElNotification.error({
+                title: "Erro",
+                message: "Erro ao logar",
+                duration: 2000
+            })
+        }
+
+    },);
+
+
+
+
 }
 
 </script>

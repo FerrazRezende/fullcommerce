@@ -2,6 +2,12 @@
 import TabSideBar from '@/Components/Dashboard/TabSideBar.vue';
 import Layout from '@/Layouts/IndexLayout.vue';
 
+defineProps({
+    user: {
+        type: Object,
+        required: true
+    },
+})
 
 </script>
 
@@ -14,7 +20,7 @@ export default {
 
 <template>
     <div class="sidebar-container">
-        <TabSideBar />
+        <TabSideBar :user="user" />
     </div>
 
 </template>
